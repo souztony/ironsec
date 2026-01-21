@@ -4,6 +4,7 @@ using IronSec.Services;
 using Google.Cloud.Firestore;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Linq;
 using System;
 
 namespace IronSec.Controllers
@@ -42,7 +43,7 @@ namespace IronSec.Controllers
             Query query = sitesRef.WhereEqualTo("UserId", userId);
             QuerySnapshot snapshot = await query.GetSnapshotAsync();
 
-            var sites = snapshot.Documents.ConvertAll(doc => doc.ConvertTo<Site>());
+            var sites = snapshot.Documents.Select(d => d.ConvertTo<Site>()).ToList();
             return Ok(sites);
         }
 

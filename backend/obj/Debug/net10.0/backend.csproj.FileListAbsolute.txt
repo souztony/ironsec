@@ -44,3 +44,14 @@ C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\obj\Debug\net10.0\refi
 C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\obj\Debug\net10.0\backend.pdb
 C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\obj\Debug\net10.0\backend.genruntimeconfig.cache
 C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\obj\Debug\net10.0\ref\backend.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.Api.CommonProtos.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.Api.Gax.Grpc.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.Cloud.Firestore.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.Cloud.Firestore.V1.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.Cloud.Location.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.LongRunning.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Google.Protobuf.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Grpc.Auth.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Grpc.Core.Api.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Grpc.Net.Client.dll
+C:\Users\tonys\OneDrive\Área de Trabalho\ironsec\backend\bin\Debug\net10.0\Grpc.Net.Common.dll
