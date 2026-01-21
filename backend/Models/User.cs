@@ -1,11 +1,17 @@
+using Google.Cloud.Firestore;
+
 namespace IronSec.Models
 {
+    [FirestoreData]
     public class User
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string Plan { get; set; } = "Free";
+        [FirestoreProperty]
+        public string? Id { get; set; }
+
+        [FirestoreProperty]
+        public string Email { get; set; } = default!;
+
+        [FirestoreProperty]
+        public string Password { get; set; } = default!;
     }
 }

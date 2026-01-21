@@ -1,4 +1,3 @@
-using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 
@@ -10,16 +9,21 @@ namespace IronSec.Services
 
         public FirebaseService()
         {
-            
-            if (FirebaseApp.DefaultInstance == null)
-            {
-                FirebaseApp.Create(new AppOptions()
-                {
-                    Credential = GoogleCredential.FromFile("Config/ironsec-firebase.json")
-                });
-            }
+            var credentialPath = Path.Combine(
+                AppContext.BaseDirectory,
+                "Config",
+                "ironsec-firebase.json"
+            );
 
-            Db = FirestoreDb.Create("iron-sec");
+            var credential = GoogleCredential.FromFile(credentialPath);
+
+            var builder = new FirestoreDbBuilder
+            {
+                ProjectId = "iron-sec",
+                Credential = credential
+            };
+
+            Db = builder.Build();
         }
     }
 }

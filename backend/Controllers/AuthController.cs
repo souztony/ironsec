@@ -1,10 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using IronSec.Models;
 using IronSec.Services;
-using Google.Cloud.Firestore;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IronSec.Controllers
 {
@@ -12,45 +8,39 @@ namespace IronSec.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly FirebaseService _firebase;
-
-        public AuthController()
-        {
-            _firebase = new FirebaseService();
-        }
+        private readonly AuthService _authService = new AuthService();
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] User user)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            // Hash simples da senha (SHA256)
-            user.PasswordHash = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(user.PasswordHash)));
+            var user = new User
+            {
+                Email = request.Email,
+                Password = request.Password
+            };
 
-            CollectionReference usersRef = _firebase.Db.Collection("users");
-            DocumentReference docRef = usersRef.Document(); // gera ID automaticamente
-            user.Id = docRef.Id;
+            var result = await _authService.Register(user);
 
-            await docRef.SetAsync(user);
-
-            return Ok(new { message = "User created", user.Id });
+            return Ok(new UserResponse
+            {
+                Id = result.Id,
+                Email = result.Email
+            });
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] User login)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            login.PasswordHash = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(login.PasswordHash)));
+            var result = await _authService.Login(request.Email, request.Password);
 
-            CollectionReference usersRef = _firebase.Db.Collection("users");
-            Query query = usersRef.WhereEqualTo("Email", login.Email)
-                                  .WhereEqualTo("PasswordHash", login.PasswordHash)
-                                  .Limit(1);
-            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+            if (result == null)
+                return Unauthorized("Email ou senha inválidos");
 
-            if (snapshot.Count == 0)
-                return Unauthorized(new { message = "Invalid credentials" });
-
-            var userDoc = snapshot.Documents[0];
-            var user = userDoc.ConvertTo<User>();
-            return Ok(new { user.Id, user.Name, user.Email, user.Plan });
+            return Ok(new UserResponse
+            {
+                Id = result.Id,
+                Email = result.Email
+            });
         }
     }
 }
